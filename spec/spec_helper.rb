@@ -107,4 +107,4 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 
-Capybara.app = Bookmark
+Capybara.app = BookmarkManager
