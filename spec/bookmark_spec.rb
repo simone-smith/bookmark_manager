@@ -6,16 +6,13 @@ describe Bookmark do
 
       # Add the test data
       Bookmark.create(url: "http://makersacademy.com")
-      Bookmark.create(url: "http://destroyallsoftware.com")
-      Bookmark.create(url: "http://google.com")
 
-      expected_bookmarks = [
-        'http://makersacademy.com',
-        'http://destroyallsoftware.com',
-        'http://google.com'
-      ]
+      expected_url = 'http://makersacademy.com'
+      expected_title = 'holding_title'
 
-      expect(Bookmark.all).to eq expected_bookmarks
+      expect(Bookmark.all).to include expected_url
+      expect(Bookmark.all).to include expected_title
+
     end
   end
 
@@ -26,9 +23,17 @@ describe Bookmark do
       expect(Bookmark.all).to include 'http://www.testbookmark.com'
     end
 
+    it 'creates a new bookmark with a title' do
+      Bookmark.create({url: 'http://www.theguardian.com'}, {title: 'The Guardian'})
+
+      expect(Bookmark.all).to include 'The Guardian'
+    end
+
     it "does not create a new bookmark if the URL is not valid" do
       Bookmark.create(url: 'not a bookmark')
       expect(Bookmark.all).not_to include 'not a bookmark'
     end
   end
+
+
 end
