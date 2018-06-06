@@ -12,12 +12,7 @@ class Bookmark
     result = connection.exec("SELECT * FROM bookmarks")
     url_array = result.map { |bookmark| bookmark['url'] }
     title_array = result.map { |bookmark| bookmark['title'] }
-    final_array = []
-    for n in 0..url_array.size
-      final_array << url_array[n]
-      final_array << title_array[n]
-    end
-    final_array
+    join_arrays(url_array, title_array)
   end
 
   def self.create(url_options, title_options = {title: 'holding_title'})
@@ -33,5 +28,14 @@ class Bookmark
   private
   def self.is_url?(url)
     url =~ /\A#{URI::regexp(['http', 'https'])}\z/
+  end
+
+  def self.join_arrays(url_array, title_array)
+    final_array = []
+    for n in 0..url_array.size
+      final_array << url_array[n]
+      final_array << title_array[n]
+    end
+    final_array
   end
 end
